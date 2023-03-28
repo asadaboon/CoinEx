@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.ui.MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/converterBtcTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/regular"
+            android:text="@string/convert_to_btc"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/convertCurrencyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/converterBtcTextView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/convertCurrencyToBtcLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/currencySpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/blue_outline"
+                        android:padding="3dp"
+                        android:spinnerMode="dropdown"
+                        tools:listitem="@layout/item_spinner" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/exchangeImageView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_icon_exchange" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3">
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/btcSpinner"
+                            android:layout_width="0dp"
+                            android:layout_height="52dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/blue_outline"
+                            android:clickable="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular"
+                            android:padding="18dp"
+                            android:text="@string/btc_title"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/btcSpinner"
+                            app:layout_constraintEnd_toEndOf="@+id/btcSpinner"
+                            app:layout_constraintStart_toStartOf="@+id/btcSpinner"
+                            app:layout_constraintTop_toTopOf="@+id/btcSpinner" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/convertCurrencyToBtcResultLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/convertCurrencyToBtcLayout">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/currencyEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/blue_outline_edittext"
+                        android:hint="@string/hint_quantity"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:spinnerMode="dropdown"
+                        android:textAlignment="center"
+                        tools:listitem="@layout/item_spinner" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/clearImageView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_icon_delete" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/btcEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_margin="10sp"
+                        android:layout_weight="3"
+                        android:background="@drawable/blue_outline_edittext"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:hint="@string/hint_quantity"
+                        android:imeOptions="actionDone"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/convertCurrencyLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/currencyUpdateDateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/regular"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="26 Mar 2023" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/currencyRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/currencyUpdateDateTextView"
+                    tools:listitem="@layout/item_coin" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/currencyShimmerLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/currencyRecyclerView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/item_coin_list_placeholder" />
+
+                        <include layout="@layout/item_coin_list_placeholder" />
+
+                        <include layout="@layout/item_coin_list_placeholder" />
+
+                        <include layout="@layout/item_coin_list_placeholder" />
+
+                        <include layout="@layout/item_coin_list_placeholder" />
+
+                        <include layout="@layout/item_coin_list_placeholder" />
+
+                        <include layout="@layout/item_coin_list_placeholder" />
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/emptyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/convertCurrencyLayout">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/emptyStateImageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_icon_error_page"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular"
+                android:text="@string/list_is_empty"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/emptyStateImageView"
+                app:layout_constraintStart_toStartOf="@+id/emptyStateImageView"
+                app:layout_constraintTop_toBottomOf="@+id/emptyStateImageView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/connectFailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/convertCurrencyLayout">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/connectFailStateImageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_icon_no_connect_internet"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular"
+                android:text="@string/check_internet_connect"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/connectFailStateImageView"
+                app:layout_constraintStart_toStartOf="@+id/connectFailStateImageView"
+                app:layout_constraintTop_toBottomOf="@+id/connectFailStateImageView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
