@@ -1,4 +1,4 @@
-package com.example.restacar.presentation.ui.adapter
+package com.example.restacar.ui.adapter
 
 import android.app.Activity
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.restacar.R
-import com.example.restacar.domain.model.CurrencySpinnerItem
+import com.example.restacar.data.model.CurrencySpinnerItem
 
 class SpinnerAdapter(
     private val activity: Activity,

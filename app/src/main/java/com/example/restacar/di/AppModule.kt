@@ -3,9 +3,9 @@ package com.example.restacar.di
 import android.content.Context
 import com.example.restacar.common.AppResourceProvider
 import com.example.restacar.common.Constants
-import com.example.restacar.data.remote.repository.GetCoinRepositoryImpl
+import com.example.restacar.data.repository.GetCoinRepositoryImpl
 import com.example.restacar.data.service.GetCoinService
-import com.example.restacar.domain.repository.GetCoinRepository
+import com.example.restacar.data.repository.GetCoinRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +18,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Provides
     @Singleton
     fun provideApi(): GetCoinService {
@@ -31,8 +30,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRepository(api: GetCoinService): GetCoinRepository {
-        return GetCoinRepositoryImpl(api)
+    fun provideRepository(api: GetCoinService, resourceProvider: AppResourceProvider): GetCoinRepository {
+        return GetCoinRepositoryImpl(api,resourceProvider)
     }
 
     @Provides

@@ -1,4 +1,4 @@
-package com.example.restacar.presentation.ui.ui
+package com.example.restacar.ui.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent

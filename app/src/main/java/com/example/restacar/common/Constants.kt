@@ -16,7 +16,7 @@ object Constants {
     }
 
     object CurrencyRateConfig {
-        const val USD_RATE = 0.000036
+        const val USD_RATE = 0.000033
         const val GBP_RATE = 0.000044
         const val EUR_RATE = 0.000038
     }

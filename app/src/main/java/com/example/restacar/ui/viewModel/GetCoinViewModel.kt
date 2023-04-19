@@ -1,4 +1,4 @@
-package com.example.restacar.presentation.ui.model
+package com.example.restacar.ui.viewModel
 
 import android.os.CountDownTimer
 import android.util.Log
@@ -11,19 +11,21 @@ import com.example.restacar.common.Constants.CurrencyCodeConfig.USD
 import com.example.restacar.common.Constants.CurrencyRateConfig.EUR_RATE
 import com.example.restacar.common.Constants.CurrencyRateConfig.GBP_RATE
 import com.example.restacar.common.Constants.CurrencyRateConfig.USD_RATE
-import com.example.restacar.common.Resource
-import com.example.restacar.domain.model.CoinResponse
-import com.example.restacar.domain.model.CurrencyResponse
-import com.example.restacar.domain.model.CurrencySpinnerItem
+import com.example.restacar.common.Result
+import com.example.restacar.data.model.CoinResponse
+import com.example.restacar.data.model.CurrencyResponse
+import com.example.restacar.data.model.CurrencySpinnerItem
 import com.example.restacar.domain.usecase.GetCoinUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class GetCoinViewModel
@@ -32,8 +34,8 @@ constructor(
     private val getCoinUseCase: GetCoinUseCase,
 ) : ViewModel() {
 
-    var toastLivaData = MutableLiveData<String>()
-    val coinLiveData = MutableLiveData<Resource<CoinResponse>>()
+    val toastLivaData = MutableLiveData<String>()
+    val coinLiveData = MutableLiveData<Result<CoinResponse>>()
     val spinnerLiveData = MutableLiveData<ArrayList<CurrencySpinnerItem>>()
     val currencyRateCalculated = MutableLiveData<Pair<BigDecimal, Boolean>>()
 
@@ -45,35 +47,57 @@ constructor(
         filterArray()
         generateFibonacciNumber()
         generatePrimeNumber()
+        for (number: Int in 1..3) {
+            Log.e("KOTLIN", " $number")
+        }
     }
 
     fun getCoinList() {
-        getCoinUseCase().onEach { result ->
+/*        getCoinUseCase().onEach { result ->
             when (result) {
-                is Resource.Success -> {
+                is Result.Success -> {
                     coinLiveData.value = result
                     setSpinnerData(result.data?.bpiList)
                 }
-                is Resource.Error -> {
+                is Result.Error -> {
                     coinLiveData.value = result
                 }
-                is Resource.Loading -> {
+                is Result.Loading -> {
                     coinLiveData.value = result
                 }
             }
+        }.launchIn(viewModelScope)*/
+        getCoinUseCase().onStart {
+            Log.e("BOONTHAM", "getCoinList: onStart")
+        }.onEach { result ->
+            Log.e("BOONTHAM", "getCoinList: onEach")
+            when (result) {
+                is Result.Success -> {
+                    coinLiveData.value = result
+                    setSpinnerData(result.data?.bpiList)
+                }
+                is Result.Error -> {
+                    coinLiveData.value = result
+                }
+                is Result.Loading -> {
+                    coinLiveData.value = result
+                }
+            }
+        }.onCompletion {
+            Log.e("BOONTHAM", "getCoinList: onCompletion")
         }.launchIn(viewModelScope)
     }
 
     fun getUpdateCurrencyRate() {
         getCoinUseCase().onEach { result ->
             when (result) {
-                is Resource.Success -> {
+                is Result.Success -> {
                     updateCurrencyRate(result)
                 }
-                is Resource.Error -> {
+                is Result.Error -> {
                     setToastLivData(result.message ?: "An unexpected error occurred")
                 }
-                is Resource.Loading -> {
+                is Result.Loading -> {
                     setToastLivData("isLoading")
                 }
             }
@@ -117,7 +141,7 @@ constructor(
         currencyType: String,
         isClearValue: Boolean = false
     ) {
-        val currency = when (currencyType) {
+        val currencyRate = when (currencyType) {
             USD -> {
                 USD_RATE
             }
@@ -130,7 +154,7 @@ constructor(
             else -> 0.0
         }
         currencyRateCalculated.value = Pair(
-            formatString(currencyValue * currency),
+            formatString(currencyValue * currencyRate),
             isClearValue
         )
     }
@@ -151,7 +175,7 @@ constructor(
         countDownTimer.start()
     }
 
-    private fun updateCurrencyRate(result: Resource.Success<CoinResponse>) {
+    private fun updateCurrencyRate(result: Result.Success<CoinResponse>) {
         result.data?.bpiList?.forEach { currencyResponse ->
             currencyResponse.isUpdate = true
         }
@@ -197,7 +221,7 @@ constructor(
     private fun primeNumber(num: Int): Boolean {
         var isPrimeNumber = true
         for (i in 2..num / 2) {
-            if (num % i == 0) {
+            if (num % 2 == 0) {
                 isPrimeNumber = false
                 break
             }
@@ -211,12 +235,12 @@ constructor(
     private fun generateFibonacciNumber() {
         var i = 1
         val n = 20
-        var fibo1 = 0 //applies only to the first integer.
+        var fibo1 = 1 //applies only to the first integer.
         var fibo2 = 1 //applies only to the second integer.
         Log.e("ASADA,", "First $n terms: ")
 
         while (i <= n) {
-            Log.e("ASADA,", "Fibonacci : $fibo1 ")
+            Log.e("ASADA,", "Fibonacci : $fibo1")
             val fiboN = fibo1 + fibo2
             fibo1 = fibo2
             fibo2 = fiboN

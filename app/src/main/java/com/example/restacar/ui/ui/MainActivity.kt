@@ -1,10 +1,11 @@
-package com.example.restacar.presentation.ui.ui
+package com.example.restacar.ui.ui
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,14 +13,13 @@ import com.example.restacar.R
 import com.example.restacar.common.ApiStatus
 import com.example.restacar.common.CheckInternetConnectionUtils
 import com.example.restacar.common.Constants
-import com.example.restacar.common.Resource
+import com.example.restacar.common.Result
 import com.example.restacar.databinding.ActivityMainBinding
-import com.example.restacar.domain.model.CoinResponse
-import com.example.restacar.presentation.ui.adapter.SpinnerAdapter
-import com.example.restacar.presentation.ui.adapter.CoinAdapter
-import com.example.restacar.presentation.ui.model.GetCoinViewModel
+import com.example.restacar.data.model.CoinResponse
+import com.example.restacar.ui.adapter.SpinnerAdapter
+import com.example.restacar.ui.adapter.CoinAdapter
+import com.example.restacar.ui.viewModel.GetCoinViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: GetCoinViewModel by viewModels()
     private lateinit var spinnerAdapter: SpinnerAdapter
-    private var currency = ""
+    private var currencyType = ""
     private var currencyValue = 0.00
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,9 +55,9 @@ class MainActivity : AppCompatActivity() {
     private fun setObserve() {
         viewModel.coinLiveData.observe(this) { result ->
             binding.apply {
-                result.message
                 when (result.status) {
                     ApiStatus.LOADING -> {
+                        currencyShimmerLayout.visibility = View.VISIBLE
                         currencyShimmerLayout.startShimmer()
                     }
                     ApiStatus.SUCCESS -> {
@@ -87,11 +87,11 @@ class MainActivity : AppCompatActivity() {
                         position: Int,
                         p3: Long
                     ) {
-                        currency = currencySpinner[position].name
+                        currencyType = currencySpinner[position].name
 
                         viewModel.convertCurrencyToBtc(
                             currencyValue = currencyValue,
-                            currencyType = currency
+                            currencyType = currencyType
                         )
                     }
 
@@ -109,9 +109,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        viewModel.toastLivaData.observe(this) { massage ->
+            Toast.makeText(this, massage, Toast.LENGTH_SHORT).show()
+        }
     }
 
-    private fun setUpItemView(result: Resource<CoinResponse>) {
+    private fun setUpItemView(result: Result<CoinResponse>) {
         binding.apply {
             result.data?.bpiList?.let { currencyList ->
                 val coinAdapter = CoinAdapter(item = currencyList)
@@ -169,7 +173,7 @@ class MainActivity : AppCompatActivity() {
                     if (str.isNotEmpty()) {
                         viewModel.convertCurrencyToBtc(
                             currencyValue = str.toString().toDouble(),
-                            currencyType = currency
+                            currencyType = currencyType
                         )
                     } else {
                         viewModel.convertCurrencyToBtc(

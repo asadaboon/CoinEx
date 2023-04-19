@@ -1,6 +1,6 @@
 package com.example.restacar.data.service
 
-import com.example.restacar.domain.model.CoinResponse
+import com.example.restacar.data.model.CoinResponse
 import retrofit2.http.GET
 
 interface GetCoinService {

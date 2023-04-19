@@ -1,4 +1,4 @@
-package com.example.restacar.presentation.ui.adapter
+package com.example.restacar.ui.adapter
 
 import android.content.Context
 import android.os.Handler
@@ -9,8 +9,8 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.restacar.R
+import com.example.restacar.data.model.CurrencyResponse
 import com.example.restacar.databinding.ItemCoinBinding
-import com.example.restacar.domain.model.CurrencyResponse
 
 
 class CoinAdapter(private val item: ArrayList<CurrencyResponse>) :

@@ -1,11 +1,11 @@
 package com.example.restacar
 
 import com.example.restacar.common.JsonFactory
-import com.example.restacar.data.remote.repository.GetCoinRepositoryImpl
+import com.example.restacar.data.repository.GetCoinRepositoryImpl
 import com.example.restacar.data.service.GetCoinService
-import com.example.restacar.domain.model.CoinResponse
+import com.example.restacar.data.model.CoinResponse
 import com.example.restacar.domain.usecase.GetCoinUseCase
-import com.example.restacar.presentation.ui.model.GetCoinViewModel
+import com.example.restacar.ui.viewModel.GetCoinViewModel
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.hamcrest.CoreMatchers

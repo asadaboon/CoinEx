@@ -1,4 +1,4 @@
-package com.example.restacar.domain.model
+package com.example.restacar.data.model
 
 import com.google.gson.annotations.SerializedName
 
